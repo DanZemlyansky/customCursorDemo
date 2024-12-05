@@ -1,31 +1,33 @@
-html, body {
-    cursor: none;
-    margin: 0;
-    overflow: hidden;
-    position: relative; 
-    height: 100%;
+body {
+  margin: 0;
+  height: 100vh;
+  background-color: #f0f0f0;
+  overflow: hidden;
+  cursor: none; 
+}
+
+.plane-trail {
+  position: absolute;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.smoke {
+  position: absolute;
+  width: 30px; 
+  height: 30px;
+  background-color: rgba(78, 76, 76, 0.8); 
+  border-radius: 50%;
+  animation: fadeOut 1s both;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
   }
-  
-  #cursor,
-  .trail {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    z-index: 10; 
-  }
-  
-  #cursor {
-    border: 2px solid #000;
-  }
-  
-  .trail {
-    width: 15px;
-    height: 15px;
-    background-color: rgba(0, 0, 255, 0.5);
+  100% {
     opacity: 0;
-    transition: opacity 0.3s ease-out;
+    transform: scale(1.5) translate(30px, 30px);
   }
-  
+}
