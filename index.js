@@ -2,12 +2,12 @@ const planeTrail = document.querySelector('.plane-trail');
 const planeImage = './Airplane-1.png'; 
 let plane = null; 
 let lastX = 0, lastY = 0; 
-let lastRotation = 0; //store the last rotation value to smooth the transition
+let lastRotation = 0; // store the last rotation value to smooth the transition
 
 document.body.style.cursor = `url(${planeImage}), auto`;
 
-document.addEventListener('mousemove', (event) => {
-  const { clientX: x, clientY: y } = event;
+function handleMovement(event) {
+  const { clientX: x, clientY: y } = event.touches ? event.touches[0] : event; // Detect if it's a touch event or mouse event
 
   if (!plane) {
     plane = document.createElement('img');
@@ -46,7 +46,21 @@ document.addEventListener('mousemove', (event) => {
 
   lastX = x;
   lastY = y;
+}
+
+document.addEventListener('mousemove', handleMovement);
+document.addEventListener('touchmove', handleMovement, { passive: true });
+
+document.addEventListener('mousedown', (event) => {
+  lastX = event.clientX;
+  lastY = event.clientY;
 });
+
+document.addEventListener('touchstart', (event) => {
+  const touch = event.touches[0];
+  lastX = touch.clientX;
+  lastY = touch.clientY;
+}, { passive: true });
 
 function createSmoke(x, y, deltaX, deltaY) {
   const smoke = document.createElement('div');
